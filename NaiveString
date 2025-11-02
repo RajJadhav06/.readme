@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+void search(char* pat, char* txt)
+{
+ int i,j,count=0;
+ int M = strlen(pat);
+ int N = strlen(txt);
+ for (i = 0; i <= N - M; i++)
+ {
+for (j = 0; j < M; j++)
+ if (txt[i + j] != pat[j])
+break;
+ if (j== M)
+{
+ printf("\nPattern found at index %d \n", i);
+ printf("Number of shifts required %d \n\n",i);
+ count=count+1;
+}
+ }
+printf("Number of occurences %d",count);
+}
+void main()
+{
+ char txt[20],pat[10];
+ printf("\nEnter text : ");
+ gets(txt);
+ printf("\nEnter pattern : ");
+ gets(pat);
+ search(pat, txt);
+ getch();
+}
