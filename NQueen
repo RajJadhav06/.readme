@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+int board [20]; 
+int count = 0; 
+bool is_safe(int row, int col)
+{
+ for (int i = 0; i < row; i++)
+ {
+ if (board[i] == col || abs(board[i] - col) == abs (i - row))
+ {
+ return false;
+ }
+ }
+ return true;
+}
+void print_solution(int n) 
+{
+ count++;
+ printf("\nSolution #%d:\n", count);
+ for (int i = 0; i < n; i++) 
+ {
+ for (int j = 0; j < n; j++) 
+ {
+ if (board[i] == j) 
+ {
+ printf("Q\t"); 
+ } 
+ else 
+ {
+ printf("*\t"); 
+ }
+}
+ printf("\n");
+ }
+}
+void solve_n_queens(int row, int n) 
+{
+ if (row == n)
+ {
+ print_solution(n);
+ return;
+ }
+ for (int col = 0; col < n; col++) 
+ {
+ if (is_safe(row, col)) 
+ {
+ board[row] = col; 
+ solve_n_queens(row + 1, n); 
+ }
+ }
+}
+int main() {
+ int n;
+ printf("Enter the number of Queens (N): ");
+ scanf("%d", &n);
+ if (n <= 0) 
+ {
+ printf("Number of Queens must be a positive integer.\n");
+ return 1;
+ }
+ solve_n_queens(0, n); // Start solving from the first row (row 0)
+ if (count == 0) 
+ {
+ printf("\nNo solutions found for N = %d\n", n);
+ }
+ else 
+ {
+ printf("\nTotal solutions found: %d\n", count);
+ }
+ getch();
+}
